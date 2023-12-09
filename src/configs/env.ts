@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/typedef */
+
 import { configDotenv } from 'dotenv';
 import { z } from 'zod';
 
