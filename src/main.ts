@@ -18,12 +18,11 @@ for (const folder of commandFolders) {
   const commandsPath: string = path.join(foldersPath, folder);
   const commandFiles: string[] = fs
     .readdirSync(commandsPath)
-    .filter((file: string) => file.endsWith('.js'));
+    .filter((file: string) => file === 'index.js');
 
   for (const file of commandFiles) {
     const filePath: string = path.join(commandsPath, file);
     const command: CustomCommand = require(filePath);
-
     if ('data' in command && 'execute' in command) {
       client.commands.set(command.data.name, command);
     } else {

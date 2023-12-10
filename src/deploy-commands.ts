@@ -1,6 +1,7 @@
 import { REST, Routes } from 'discord.js';
 import * as fs from 'fs';
 import * as path from 'path';
+import { CustomCommand } from './@types/custom';
 import { env } from './configs/env';
 
 const getCommands = (): any[] => {
@@ -13,11 +14,11 @@ const getCommands = (): any[] => {
     const commandsPath: string = path.join(foldersPath, folder);
     const commandFiles: string[] = fs
       .readdirSync(commandsPath)
-      .filter((file: string) => file.endsWith('.js'));
+      .filter((file: string) => file === 'index.js');
 
     for (const file of commandFiles) {
       const filePath: string = path.join(commandsPath, file);
-      const command: any = require(filePath);
+      const command: CustomCommand = require(filePath);
       if ('data' in command && 'execute' in command) {
         commands.push(command.data.toJSON());
       } else {
