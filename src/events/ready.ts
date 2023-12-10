@@ -1,4 +1,5 @@
 import { Client, Events } from 'discord.js';
+import { CustomEvent } from '../@types/custom';
 import { deployCommands } from '../deploy-commands';
 
 module.exports = {
@@ -8,4 +9,4 @@ module.exports = {
     await deployCommands();
     console.log(`Ready! Logged in as ${client.user.tag}`);
   },
-};
+} as CustomEvent;

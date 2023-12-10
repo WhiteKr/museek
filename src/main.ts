@@ -1,6 +1,7 @@
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import * as fs from 'fs';
 import * as path from 'path';
+import { CustomCommand, CustomEvent } from './@types/custom';
 import { env } from './configs/env';
 
 const client: Client<boolean> = new Client({
@@ -8,6 +9,7 @@ const client: Client<boolean> = new Client({
 });
 
 client.commands = new Collection();
+client.cooldowns = new Collection();
 
 const foldersPath: string = path.join(__dirname, 'commands');
 const commandFolders: string[] = fs.readdirSync(foldersPath);
@@ -20,7 +22,7 @@ for (const folder of commandFolders) {
 
   for (const file of commandFiles) {
     const filePath: string = path.join(commandsPath, file);
-    const command: any = require(filePath);
+    const command: CustomCommand = require(filePath);
 
     if ('data' in command && 'execute' in command) {
       client.commands.set(command.data.name, command);
@@ -39,7 +41,7 @@ const eventFiles: string[] = fs
 
 for (const file of eventFiles) {
   const filePath: string = path.join(eventsPath, file);
-  const event: any = require(filePath);
+  const event: CustomEvent = require(filePath);
   if (event.once) {
     client.once(event.name, (...args: any) => event.execute(...args));
   } else {
