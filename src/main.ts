@@ -6,7 +6,7 @@ import { env } from './configs/env';
 import { getCommands } from './utils/getCommands';
 
 const client: Client<boolean> = new Client({
-  intents: [GatewayIntentBits.Guilds],
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates],
 });
 
 client.commands = new Collection();
