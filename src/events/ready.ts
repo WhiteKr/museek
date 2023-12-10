@@ -1,6 +1,6 @@
 import { Client, Events } from 'discord.js';
 import { CustomEvent } from '../@types/custom';
-import { deployCommands } from '../deployCommands';
+import { deployCommands } from '../utils/deployCommands';
 
 module.exports = {
   name: Events.ClientReady,
